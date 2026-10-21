@@ -4,7 +4,7 @@ pipeline {
     stages {
         stage('Checkout') {
             steps {
-                // Checkout source code from SCM / Git
+                // Task 3: Fetch the source code from GitHub
                 checkout scm
             }
         }
@@ -15,7 +15,15 @@ pipeline {
                     if (isUnix()) {
                         sh 'python3 -m unittest test_form.py'
                     } else {
-                        bat 'python -m unittest test_form.py'
+                        // Use exact python path if Jenkins service user PATH differs, with fallback to standard python
+                        bat '''
+                        @echo off
+                        if exist "C:\\Users\\abhyu\\AppData\\Local\\Programs\\Python\\Python310\\python.exe" (
+                            "C:\\Users\\abhyu\\AppData\\Local\\Programs\\Python\\Python310\\python.exe" -m unittest test_form.py
+                        ) else (
+                            python -m unittest test_form.py
+                        )
+                        '''
                     }
                 }
             }
