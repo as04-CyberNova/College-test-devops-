@@ -4,28 +4,183 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>User Contact Form</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --primary: #4f46e5;
+            --primary-hover: #4338ca;
+            --bg-gradient: linear-gradient(135deg, #0f172a 0%, #1e1b4b 50%, #312e81 100%);
+            --card-bg: rgba(255, 255, 255, 0.06);
+            --card-border: rgba(255, 255, 255, 0.12);
+            --input-bg: rgba(15, 23, 42, 0.6);
+            --input-border: rgba(255, 255, 255, 0.15);
+            --text-main: #f8fafc;
+            --text-muted: #94a3b8;
+            --focus-ring: rgba(99, 102, 241, 0.4);
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+            font-family: 'Plus Jakarta Sans', system-ui, -apple-system, sans-serif;
+        }
+
+        body {
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background: var(--bg-gradient);
+            padding: 24px;
+            color: var(--text-main);
+        }
+
+        .container {
+            width: 100%;
+            max-width: 460px;
+            background: var(--card-bg);
+            border: 1px solid var(--card-border);
+            backdrop-filter: blur(20px);
+            -webkit-backdrop-filter: blur(20px);
+            border-radius: 20px;
+            padding: 40px 32px;
+            box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.5);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .container::before {
+            content: '';
+            position: absolute;
+            top: -50px;
+            right: -50px;
+            width: 150px;
+            height: 150px;
+            background: radial-gradient(circle, rgba(99, 102, 241, 0.35) 0%, transparent 70%);
+            pointer-events: none;
+        }
+
+        .header {
+            margin-bottom: 28px;
+            text-align: center;
+        }
+
+        .header h2 {
+            font-size: 26px;
+            font-weight: 700;
+            letter-spacing: -0.5px;
+            margin-bottom: 8px;
+            background: linear-gradient(135deg, #ffffff 0%, #cbd5e1 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .header p {
+            font-size: 14px;
+            color: var(--text-muted);
+        }
+
+        .form-group {
+            margin-bottom: 20px;
+        }
+
+        label {
+            display: block;
+            font-size: 13px;
+            font-weight: 600;
+            margin-bottom: 8px;
+            color: #cbd5e1;
+            letter-spacing: 0.2px;
+        }
+
+        input[type="text"],
+        input[type="email"],
+        input[type="tel"] {
+            width: 100%;
+            padding: 13px 16px;
+            background: var(--input-bg);
+            border: 1px solid var(--input-border);
+            border-radius: 12px;
+            color: var(--text-main);
+            font-size: 14px;
+            outline: none;
+            transition: all 0.2s ease-in-out;
+        }
+
+        input[type="text"]::placeholder,
+        input[type="email"]::placeholder,
+        input[type="tel"]::placeholder {
+            color: #64748b;
+        }
+
+        input[type="text"]:focus,
+        input[type="email"]:focus,
+        input[type="tel"]:focus {
+            border-color: #818cf8;
+            box-shadow: 0 0 0 4px var(--focus-ring);
+            background: rgba(15, 23, 42, 0.85);
+        }
+
+        .actions {
+            margin-top: 28px;
+        }
+
+        input[type="submit"] {
+            width: 100%;
+            padding: 14px;
+            border: none;
+            border-radius: 12px;
+            background: linear-gradient(135deg, #6366f1 0%, var(--primary) 100%);
+            color: #ffffff;
+            font-size: 15px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.2s ease;
+            box-shadow: 0 4px 14px rgba(79, 70, 229, 0.4);
+        }
+
+        input[type="submit"]:hover {
+            background: linear-gradient(135deg, #4f46e5 0%, var(--primary-hover) 100%);
+            transform: translateY(-1px);
+            box-shadow: 0 6px 20px rgba(79, 70, 229, 0.5);
+        }
+
+        input[type="submit"]:active {
+            transform: translateY(1px);
+            box-shadow: 0 2px 8px rgba(79, 70, 229, 0.4);
+        }
+    </style>
 </head>
 <body>
-    <h2>User Registration Form</h2>
-    <form action="#" method="POST">
-        <div>
-            <label for="name">Name:</label><br>
-            <input type="text" id="name" name="name" placeholder="Enter your full name" required>
+    <div class="container">
+        <div class="header">
+            <h2>User Registration Form</h2>
+            <p>Please enter your contact details below</p>
         </div>
-        <br>
-        <div>
-            <label for="email">Email:</label><br>
-            <input type="email" id="email" name="email" placeholder="Enter your email" required>
-        </div>
-        <br>
-        <div>
-            <label for="contact">Contact Number:</label><br>
-            <input type="tel" id="contact" name="contact" pattern="[0-9]{10}" placeholder="10-digit number" required>
-        </div>
-        <br>
-        <div>
-            <input type="submit" id="submit" value="Submit">
-        </div>
-    </form>
+
+        <form action="#" method="POST">
+            <div class="form-group">
+                <label for="name">Name</label>
+                <input type="text" id="name" name="name" placeholder="John Doe" required>
+            </div>
+
+            <div class="form-group">
+                <label for="email">Email</label>
+                <input type="email" id="email" name="email" placeholder="john@example.com" required>
+            </div>
+
+            <div class="form-group">
+                <label for="contact">Contact Number</label>
+                <input type="tel" id="contact" name="contact" pattern="[0-9]{10}" placeholder="9876543210" required>
+            </div>
+
+            <div class="actions">
+                <input type="submit" id="submit" value="Submit Form">
+            </div>
+        </form>
+    </div>
 </body>
 </html>
